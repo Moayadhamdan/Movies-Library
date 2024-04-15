@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const dataFromJson= require('./Movie Data/data.json')
 
 app.use(cors());
 
@@ -17,9 +18,10 @@ function Movie(title, poster_path, overview) {
 app.get('/', (req, res) => {
 
     const sampleMovie = new Movie(
-        "Spider-Man: No Way Home",
-        "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-        "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man."
+       dataFromJson.title,
+       dataFromJson.poster_path,
+       dataFromJson.overviews
+
     );
     res.json(sampleMovie);
 });

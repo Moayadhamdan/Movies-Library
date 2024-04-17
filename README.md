@@ -3,7 +3,13 @@
 **Author Name**: [Moayad Hamdan]
 
 ## WRRC
-![WRRC Image](WRRC.png)
+LAB11:
+
+![WRRC(LAB11) Image](WRRC(lab11).png)
+LAB12:
+
+![WRRC(LAB11) Image](WRRC(lab12).png)
+
 
 ## Overview
 This project is a movie library app that allows users to browse the latest movies based on categories.
@@ -34,9 +40,36 @@ To build and run this app on your own machine, follow these steps:
 6. You should now see the home page of the Movies Library app.
 
 ## Project Features
-- Home Page Endpoint: `/`
-- Displays the latest movies with details.
-- Favorite Page Endpoint: `/favorite`
-- Displays a welcome message for the favorite page.
-- Error Handling:
+- **Home Page Endpoint:** `/`
+  - Displays the latest movies with details.
+  
+- **Favorite Page Endpoint:** `/favorite`
+  - Displays a welcome message for the favorite page.
+  
+- **Trending Page Endpoint:** `/trending`
+  - Fetches and displays trending movies of the week.
+  
+- **Search Page Endpoint:** `/search`
+  - Allows users to search for movies based on the provided query.
+  
+- **Top Rated Page Endpoint:** `/top-rated`
+  - Fetches and displays top-rated movies.
+  
+- **Upcoming Page Endpoint:** `/upcoming`
+  - Fetches and displays upcoming movies.
+
+## Error Handling
 - Handles server errors (status 500) and page not found errors (status 404).
+
+## Dependencies
+- Express
+- Cors
+- Axios
+- Dotenv
+
+## API Key
+- Make sure to set up your API key in a `.env` file and name the variable `API_KEY`.
+
+## Feedback
+- If you have any feedback or suggestions, please feel free to reach out to [Moayad Hamdan](https://github.com/Moayadhamdan).
+

@@ -4,16 +4,29 @@ const cors = require('cors');
 const axios = require('axios');
 require('dotenv').config();
 
-const PORT = 3000;
+//lab13
+const { Client } = require('pg');
+const url = 'postgres://moayad:2001@localhost:5432/movieslibrary'
+const client = new Client(url);
+
+const PORT = process.env.PORT || 3000;
 const apiKey = process.env.API_KEY;
 
+//app lab13
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 // routes
-app.get('/', homePageHandler);
-app.get('/favorite', favoriteHandler);
-app.get('/trending', trendingHandler);
-app.get('/search', searchHandler);
-app.get('/top-rated', topRatedHandler);
-app.get('/upcoming', upcomingHandler);
+app.get('/', homePageHandler);//lab11
+app.get('/favorite', favoriteHandler);//lab11
+app.get('/trending', trendingHandler);//lab12
+app.get('/search', searchHandler);//lab12
+app.get('/top-rated', topRatedHandler);//lab12
+app.get('/upcoming', upcomingHandler);//lab12
+app.post('/addMovie', addMovieHandler)//lab13
+app.get('/getMovies', getMoviesHandler);//lab13
+
 
 // function for creating movie objects MovieLab11
 class MovieLab11 {
@@ -118,6 +131,21 @@ function upcomingHandler(req, res) {
         });
 }
 
+//Post movie (Add movie) function lab13
+function addMovieHandler(req, res) {
+    console.log(req.body)
+    const {original_title, release_date, poster_path, overview, comment }= req.body 
+    const  sql = `INSERT INTO movietable(original_title, release_date, poster_path, overview, comment )
+    VALUES ($1, $2, $3, $4, $5) RETURNING *;`
+    const values = [original_title, release_date, poster_path, overview, comment] 
+    client.query(sql, values).then((reuslt)=>{
+        console.log(reuslt.rows)
+        res.status(201).json(reuslt.rows)
+    }).catch(((error) =>{
+        errorHandler(error, req, res);
+    }))
+}
+
 // Error handling middleware for 404 - Page Not Found
 app.use((req, res, next) => {
     res.status(404).json({ status: 404, responseText: 'Page not found' });
@@ -130,4 +158,24 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(PORT);
+// app.listen(PORT);
+
+// Start the server for lab13 client connect
+function getMoviesHandler(req,res){
+    const sql = `SELECT * FROM movietable;`
+    client.query(sql).then((reuslt)=>{
+        const data = reuslt.rows
+        res.json(data)
+
+    })
+    .catch()
+
+}
+client.connect().then(()=>{
+
+    app.listen(PORT, ()=>{
+    console.log(`listening to port ${PORT}`);
+    })
+}
+
+ ).catch()

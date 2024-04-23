@@ -26,6 +26,8 @@ app.get('/top-rated', topRatedHandler);//lab12
 app.get('/upcoming', upcomingHandler);//lab12
 app.post('/addMovie', addMovieHandler)//lab13
 app.get('/getMovies', getMoviesHandler);//lab13
+app.put('/updateMovie/:id', updateMovieHandler);//lab14
+app.delete('/deleteMovie/:id', deleteMovieHandler);//lab14
 
 
 // function for creating movie objects MovieLab11
@@ -145,6 +147,41 @@ function addMovieHandler(req, res) {
         errorHandler(error, req, res);
     }))
 }
+//get movies function lab13 & lab14
+function getMoviesHandler(req,res){
+    const sql = `SELECT * FROM movietable;`
+    client.query(sql).then((reuslt)=>{
+        const data = reuslt.rows
+        res.json(data)
+
+    })
+    .catch()
+
+}
+//update movie function lab14
+function updateMovieHandler(req,res){
+    const id = req.params.id
+    const {original_title, release_date, poster_path, overview, comment }= req.body 
+    const  sql = `UPDATE movietable SET original_title=$1, release_date=$2, poster_path=$3, overview=$4, comment=$5 WHERE id= ${id} RETURNING *;`
+    const values = [original_title,release_date,poster_path,overview,comment] 
+    client.query(sql, values).then((reuslt)=>{
+        console.log(reuslt.rows)
+        res.status(200).json(reuslt.rows)
+    }).catch(((error) =>{
+        errorHandler(error, req, res);
+    }))
+}
+//delete movie function lab14
+function deleteMovieHandler(req,res){
+    const id = req.params.id
+    const  sql = `DELETE FROM movietable WHERE id= ${id} RETURNING *;`
+    client.query(sql).then((reuslt)=>{
+        console.log(reuslt.rows)
+        res.status(204).json(reuslt.rows)
+    }).catch(((error) =>{
+        errorHandler(error, req, res);
+    }))
+}
 
 // Error handling middleware for 404 - Page Not Found
 app.use((req, res, next) => {
@@ -160,17 +197,9 @@ app.use((err, req, res, next) => {
 // Start the server
 // app.listen(PORT);
 
+
+
 // Start the server for lab13 client connect
-function getMoviesHandler(req,res){
-    const sql = `SELECT * FROM movietable;`
-    client.query(sql).then((reuslt)=>{
-        const data = reuslt.rows
-        res.json(data)
-
-    })
-    .catch()
-
-}
 client.connect().then(()=>{
 
     app.listen(PORT, ()=>{

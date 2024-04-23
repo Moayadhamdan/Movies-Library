@@ -15,6 +15,10 @@ LAB13:
 
 ![WRRC(LAB13) Image](WRRC(lab13).png)
 
+LAB14:
+
+![WRRC(LAB14) Image](WRRC(lab14).png)
+
 
 ## Overview
 This project is a movie library app that allows users to browse the latest movies based on categories.
@@ -40,17 +44,26 @@ To build and run this app on your machine, follow these steps:
     npm install
     ```
 
-4. Start the server:
+4. Set up your API key:
+
+    - Create a `.env` file in the root directory of the project.
+    - Inside the `.env` file, add your API key as follows:
+
+      ```plaintext
+      API_KEY=your_api_key_here
+      ```
+
+5. Start the server:
 
     ```bash
     npm start
     ```
 
-5. Open your web browser and go to the following address:
+6. Open your web browser and go to the following address:
 
     [http://localhost:3000/](http://localhost:3000/)
 
-6. You should now see the home page of the Movies Library app.
+7. You should now see the home page of the Movies Library app.
 
 ## Project Features
 - **Home Page Endpoint:** `/`
@@ -76,6 +89,12 @@ To build and run this app on your machine, follow these steps:
 
 - **Get Movies Endpoint:** `/getMovies`
   - Fetches and displays all movies from the database.
+
+- **Update Movie Endpoint:** `/updateMovie/:id`
+  - Allows users to update movie details.
+
+- **Delete Movie Endpoint:** `/deleteMovie/:id`
+  - Allows users to delete a movie from the database.
 
 ## Error Handling
 - Handles server errors (status 500) and page not found errors (status 404).

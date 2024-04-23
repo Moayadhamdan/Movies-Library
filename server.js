@@ -28,6 +28,8 @@ app.post('/addMovie', addMovieHandler)//lab13
 app.get('/getMovies', getMoviesHandler);//lab13
 app.put('/updateMovie/:id', updateMovieHandler);//lab14
 app.delete('/deleteMovie/:id', deleteMovieHandler);//lab14
+app.get('/getMovie/:id', getMovieHandler);//lab
+
 
 
 // function for creating movie objects MovieLab11
@@ -147,7 +149,7 @@ function addMovieHandler(req, res) {
         errorHandler(error, req, res);
     }))
 }
-//get movies function lab13 & lab14
+//get movies function lab13
 function getMoviesHandler(req,res){
     const sql = `SELECT * FROM movietable;`
     client.query(sql).then((reuslt)=>{
@@ -182,6 +184,16 @@ function deleteMovieHandler(req,res){
         errorHandler(error, req, res);
     }))
 }
+function getMovieHandler(req,res){
+    const id = req.params.id;
+    const sql=`SELECT * FROM movietable WHERE id = ${id} ;`
+    client.query(sql).then((reuslt)=>{
+        console.log(reuslt.rows)
+        res.status(200).json(reuslt.rows)
+    }).catch(((error) =>{
+        errorHandler(error, req, res);
+    }))
+  }
 
 // Error handling middleware for 404 - Page Not Found
 app.use((req, res, next) => {

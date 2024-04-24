@@ -91,10 +91,13 @@ To build and run this app on your machine, follow these steps:
   - Fetches and displays all movies from the database.
 
 - **Update Movie Endpoint:** `/updateMovie/:id`
-  - Allows users to update movie details.
+  - Allows users to update movie by id details.
 
 - **Delete Movie Endpoint:** `/deleteMovie/:id`
-  - Allows users to delete a movie from the database.
+  - Allows users to delete a movie by id from the database.
+
+  **Get Movie Endpoint:** `/getMovie/:id`
+  - Fetches and displays movie by id from the database.
 
 ## Error Handling
 - Handles server errors (status 500) and page not found errors (status 404).

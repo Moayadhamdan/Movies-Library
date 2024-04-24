@@ -6,7 +6,11 @@ require('dotenv').config();
 
 //lab13
 const { Client } = require('pg');
-const url = 'postgres://moayad:2001@localhost:5432/movieslibrary'
+// const url = 'postgres://moayad:2001@localhost:5432/movieslibrary'
+
+//lab15
+const url = process.env.DATABASE_URL
+
 const client = new Client(url);
 
 const PORT = process.env.PORT || 3000;

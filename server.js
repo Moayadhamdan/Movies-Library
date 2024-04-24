@@ -28,7 +28,7 @@ app.post('/addMovie', addMovieHandler)//lab13
 app.get('/getMovies', getMoviesHandler);//lab13
 app.put('/updateMovie/:id', updateMovieHandler);//lab14
 app.delete('/deleteMovie/:id', deleteMovieHandler);//lab14
-app.get('/getMovie/:id', getMovieHandler);//lab
+app.get('/getMovie/:id', getMovieHandler);//lab14
 
 
 
@@ -184,6 +184,7 @@ function deleteMovieHandler(req,res){
         errorHandler(error, req, res);
     }))
 }
+//get movie function lab14
 function getMovieHandler(req,res){
     const id = req.params.id;
     const sql=`SELECT * FROM movietable WHERE id = ${id} ;`

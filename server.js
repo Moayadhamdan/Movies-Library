@@ -9,7 +9,7 @@ const { Client } = require('pg');
 // const url = 'postgres://moayad:2001@localhost:5432/movieslibrary'
 
 //lab15
-const url = process.env.DATABASE_URL
+const url = process.env.DATABASE_URL;
 
 const client = new Client(url);
 

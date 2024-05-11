@@ -9,7 +9,7 @@ const { Client } = require('pg');
 // const url = 'postgres://moayad:2001@localhost:5432/movieslibrary'
 
 //lab15
-const url = process.env.DATABASE_URL
+const url = process.env.DATABASE_URL;
 
 const client = new Client(url);
 
@@ -21,6 +21,8 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+//for lab 18
+app.use(cors());
 // routes
 app.get('/', homePageHandler);//lab11
 app.get('/favorite', favoriteHandler);//lab11
@@ -188,6 +190,11 @@ function deleteMovieHandler(req,res){
         errorHandler(error, req, res);
     }))
 }
+
+function errorHandler(error, req, res) {
+    console.error(error);
+    res.status(500).json({ status: 500, responseText: 'Sorry, something went wrong' });
+}
 //get movie function lab14
 function getMovieHandler(req,res){
     const id = req.params.id;
@@ -205,11 +212,13 @@ app.use((req, res, next) => {
     res.status(404).json({ status: 404, responseText: 'Page not found' });
 });
 
+
+
 // Error handling middleware for 500 - Internal Server Error
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ status: 500, responseText: 'Sorry, something went wrong' });
-});
+}); 
 
 // Start the server
 // app.listen(PORT);
